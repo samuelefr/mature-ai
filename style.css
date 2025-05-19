@@ -1,0 +1,291 @@
+/* =========================
+   Stile generale della pagina
+   ========================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font leggibile e moderno */
+    line-height: 1.7; /* Migliora la leggibilità */
+    color: #222; /* Testo più scuro per maggiore contrasto */
+    max-width: 1200px; /* Larghezza massima del contenuto */
+    margin: 0 auto; /* Centra il contenuto */
+    padding: 24px; /* Spaziatura attorno al contenuto */
+    background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%); /* Sfondo sfumato */
+    min-height: 100vh; /* Copre tutta l’altezza della finestra */
+}
+
+/* =========================
+   Intestazione principale
+   ========================= */
+.header {
+    text-align: center; /* Centra il testo */
+    margin-bottom: 32px; /* Spazio sotto l’intestazione */
+    color: #2c3e50; /* Colore blu/grigio scuro */
+}
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+.header p {
+    font-size: 1.15rem;
+    color: #34495e;
+}
+
+/* =========================
+   Layout principale (Flexbox)
+   ========================= */
+.container {
+    display: flex; /* Layout flessibile */
+    gap: 24px; /* Spazio tra le colonne */
+    flex-wrap: wrap; /* Permette di andare a capo su schermi piccoli */
+    align-items: flex-start; /* Allinea in alto */
+}
+
+/* =========================
+   Sezioni input e risultati
+   ========================= */
+.input-section, .results-section {
+    background: #fff; /* Sfondo bianco */
+    border-radius: 10px; /* Angoli arrotondati */
+    padding: 24px; /* Spaziatura interna */
+    box-shadow: 0 4px 16px rgba(44, 62, 80, 0.07); /* Ombra leggera */
+}
+
+/* Sezione input */
+.input-section {
+    flex: 1 1 320px; /* Occupa almeno 320px, cresce se serve */
+    min-width: 280px;
+    max-width: 400px;
+}
+
+/* Sezione risultati */
+.results-section {
+    flex: 2 1 600px; /* Occupa più spazio rispetto all’input */
+    min-width: 340px;
+}
+
+/* =========================
+   Area di testo per argomenti
+   ========================= */
+textarea {
+    width: 100%;
+    height: 180px;
+    padding: 12px;
+    border: 1.5px solid #d0d7de;
+    border-radius: 6px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 15px;
+    margin-bottom: 18px;
+    background: #f8fafc;
+    transition: border-color 0.2s;
+}
+textarea:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* =========================
+   Bottoni generali
+   ========================= */
+button {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 6px rgba(52, 152, 219, 0.07);
+}
+button:hover, button:focus {
+    background: #217dbb;
+    outline: none;
+}
+button:disabled {
+    background: #b2bec3;
+    cursor: not-allowed;
+}
+
+/* =========================
+   Card dei risultati
+   ========================= */
+.result-card {
+    background: #f9f9fb;
+    border-left: 5px solid #3498db;
+    padding: 18px 18px 12px 18px;
+    margin-bottom: 18px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
+}
+.result-card h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.25rem;
+}
+
+/* =========================
+   Indicatori di caricamento
+   ========================= */
+.loading {
+    text-align: center;
+    padding: 24px 0;
+    font-style: italic;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Spinner animato */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.09);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #3498db;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}
+
+/* =========================
+   Messaggi di errore
+   ========================= */
+.error {
+    color: #e74c3c;
+    padding: 12px;
+    background: #fdecea;
+    border-radius: 5px;
+    margin-bottom: 16px;
+    border-left: 4px solid #e74c3c;
+    font-weight: 500;
+}
+
+/* =========================
+   Impostazioni API
+   ========================= */
+.api-settings {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #eee;
+}
+.api-settings input {
+    width: 100%;
+    padding: 9px;
+    margin-bottom: 10px;
+    border: 1.5px solid #d0d7de;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #f8fafc;
+    transition: border-color 0.2s;
+}
+.api-settings input:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* =========================
+   Navigazione a tab
+   ========================= */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background: #f1f1f1;
+    border-radius: 6px 6px 0 0;
+    margin-bottom: -1px;
+}
+.tab button {
+    background: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 12px 20px;
+    transition: 0.2s;
+    color: #333;
+    font-size: 1rem;
+    border-radius: 6px 6px 0 0;
+    margin-right: 2px;
+}
+.tab button:hover, .tab button:focus {
+    background: #e3eaf2;
+}
+.tab button.active {
+    background: #3498db;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Contenuto delle tab */
+.tabcontent {
+    display: none;
+    padding: 24px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    animation: fadeEffect 0.7s;
+    background: #fff;
+}
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* =========================
+   Bottoni di download
+   ========================= */
+.download-buttons {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+.download-buttons button {
+    margin-left: 10px;
+    background: #2ecc71;
+    color: #fff;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+.download-buttons button:hover, .download-buttons button:focus {
+    background: #27ae60;
+}
+
+/* =========================
+   Utilità e responsive
+   ========================= */
+.hidden {
+    display: none !important;
+}
+
+/* Migliora la visualizzazione su dispositivi mobili */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        gap: 0;
+    }
+    .input-section, .results-section {
+        min-width: 0;
+        max-width: 100%;
+        margin-bottom: 24px;
+    }
+    .tabcontent {
+        padding: 14px;
+    }
+    .header h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Migliora la leggibilità dei titoli Markdown */
+.result-card h1, .result-card h2, .result-card h3, .result-card h4, .result-card h5, .result-card h6 {
+    margin-top: 12px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #217dbb;
+}

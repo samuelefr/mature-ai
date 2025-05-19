@@ -4,516 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maturità AI Helper</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #2c3e50;
-        }
-        
-        .container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .input-section, .results-section {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .input-section {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .results-section {
-            flex: 2;
-            min-width: 500px;
-        }
-        
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        
-        button:hover {
-            background-color: #2980b9;
-        }
-        
-        button:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
-        }
-        
-        .result-card {
-            background-color: #f9f9f9;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-        
-        .result-card h3 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 20px;
-            font-style: italic;
-            color: #7f8c8d;
-        }
-        
-        .error {
-            color: #e74c3c;
-            padding: 10px;
-            background-color: #fadbd8;
-            border-radius: 4px;
-            margin-bottom: 15px;
-        }
-        
-        .api-settings {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        
-        .api-settings input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-            border-radius: 4px 4px 0 0;
-        }
-        
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 10px 16px;
-            transition: 0.3s;
-            color: #333;
-        }
-        
-        .tab button:hover {
-            background-color: #ddd;
-        }
-        
-        .tab button.active {
-            background-color: #3498db;
-            color: white;
-        }
-        
-        .tabcontent {
-            display: none;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-top: none;
-            border-radius: 0 0 4px 4px;
-            animation: fadeEffect 1s;
-            background-color: white;
-        }
-        
-        @keyframes fadeEffect {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-        
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border-left-color: #3498db;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .hidden {
-            display: none;
-        }
-    </style>
+    <!-- Collegamento al file CSS esterno -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Libreria per il salvataggio dei file (usata da html-docx-js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- Libreria per generare DOCX da HTML -->
+    <script src="https://unpkg.com/html-docx-js-typescript@1.5.0/dist/html-docx.js"></script>
+    <!-- Librerie per la generazione di PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
+    <!-- Intestazione principale -->
     <div class="header">
         <h1>Maturità AI Helper</h1>
         <p>Inserisci gli argomenti da studiare e lascia che l'intelligenza artificiale ti aiuti nella preparazione</p>
     </div>
-    
+
+    <!-- Contenitore principale per input e risultati -->
     <div class="container">
+        <!-- Sezione per l'input dell'utente -->
         <div class="input-section">
             <h2>Inserisci gli argomenti</h2>
             <p>Scrivi ogni argomento su una nuova riga:</p>
+            <!-- Area di testo per l'inserimento degli argomenti -->
             <textarea id="topics-input" placeholder="Es:
 La Prima Guerra Mondiale
 I Promessi Sposi di Alessandro Manzoni
 Le derivate in matematica
 Il sistema nervoso umano"></textarea>
-            
+
+            <!-- Pulsante per avviare la generazione del materiale -->
             <button id="generate-btn">Genera Materiale di Studio</button>
+            <!-- Elemento per mostrare eventuali messaggi di errore, nascosto di default -->
             <div id="error-message" class="error hidden"></div>
-            
+
+            <!-- Sezione per le impostazioni dell'API -->
             <div class="api-settings">
                 <h3>Impostazioni API</h3>
                 <label for="api-key">API Key di Google AI Studio:</label>
+                <!-- Campo per l'inserimento della chiave API (tipo password per sicurezza) -->
                 <input type="password" id="api-key" placeholder="Inserisci la tua chiave API">
                 <p><small>La tua chiave API è memorizzata solo localmente nel tuo browser.</small></p>
             </div>
         </div>
-        
+
+        <!-- Sezione per mostrare i risultati -->
         <div class="results-section">
+            <!-- Navigazione a tab -->
             <div class="tab">
                 <button class="tablinks active" onclick="openTab(event, 'overview')">Panoramica</button>
                 <button class="tablinks" onclick="openTab(event, 'detailed')">Dettagli</button>
                 <button class="tablinks" onclick="openTab(event, 'quiz')">Quiz</button>
             </div>
-            
+
+            <!-- Contenuto della tab Panoramica -->
             <div id="overview" class="tabcontent" style="display: block;">
+                <!-- Indicatore di caricamento per la panoramica -->
                 <div id="overview-loading" class="loading hidden">
                     <div class="spinner"></div>
                     <span>Generazione in corso...</span>
                 </div>
+                <!-- Contenitore per i risultati della panoramica -->
                 <div id="overview-results"></div>
             </div>
-            
+
+            <!-- Contenuto della tab Dettagli -->
             <div id="detailed" class="tabcontent">
+                <!-- Indicatore di caricamento per i dettagli -->
                 <div id="detailed-loading" class="loading hidden">
                     <div class="spinner"></div>
                     <span>Elaborazione approfondita in corso...</span>
                 </div>
+                <!-- Contenitore per i risultati dettagliati -->
                 <div id="detailed-results"></div>
             </div>
-            
+
+            <!-- Contenuto della tab Quiz -->
             <div id="quiz" class="tabcontent">
+                <!-- Indicatore di caricamento per i quiz -->
                 <div id="quiz-loading" class="loading hidden">
                     <div class="spinner"></div>
                     <span>Creazione quiz in corso...</span>
                 </div>
+                <!-- Contenitore per i risultati dei quiz -->
                 <div id="quiz-results"></div>
             </div>
         </div>
     </div>
-    
-    <script>
-        // Funzione per aprire le schede
-        function openTab(evt, tabName) {
-            const tabcontent = document.getElementsByClassName("tabcontent");
-            for (let i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            
-            const tablinks = document.getElementsByClassName("tablinks");
-            for (let i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-        
-        // Salva e carica la chiave API dal localStorage
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedApiKey = localStorage.getItem('google_ai_api_key');
-            if (savedApiKey) {
-                document.getElementById('api-key').value = savedApiKey;
-            }
-            
-            document.getElementById('api-key').addEventListener('change', (e) => {
-                localStorage.setItem('google_ai_api_key', e.target.value);
-            });
-        });
-        
-        // Gestione del pulsante di generazione
-        document.getElementById('generate-btn').addEventListener('click', async () => {
-            const topicsText = document.getElementById('topics-input').value.trim();
-            const apiKey = document.getElementById('api-key').value.trim();
-            const errorElement = document.getElementById('error-message');
-            
-            errorElement.classList.add('hidden');
-            
-            if (!topicsText) {
-                errorElement.textContent = 'Inserisci almeno un argomento da studiare.';
-                errorElement.classList.remove('hidden');
-                return;
-            }
-            
-            if (!apiKey) {
-                errorElement.textContent = 'È necessaria una chiave API di Google AI Studio.';
-                errorElement.classList.remove('hidden');
-                return;
-            }
-            
-            const topics = topicsText.split('\n').filter(topic => topic.trim() !== '');
-            
-            // Disabilita il pulsante durante la generazione
-            const generateBtn = document.getElementById('generate-btn');
-            generateBtn.disabled = true;
-            generateBtn.textContent = 'Generazione in corso...';
-            
-            // Mostra gli indicatori di caricamento
-            document.getElementById('overview-loading').classList.remove('hidden');
-            document.getElementById('detailed-loading').classList.remove('hidden');
-            document.getElementById('quiz-loading').classList.remove('hidden');
-            
-            // Pulisci i risultati precedenti
-            document.getElementById('overview-results').innerHTML = '';
-            document.getElementById('detailed-results').innerHTML = '';
-            document.getElementById('quiz-results').innerHTML = '';
-            
-            try {
-                // Generazione panoramica per tutti gli argomenti
-                await generateOverview(topics, apiKey);
-                
-                // Generazione dettagli per ogni argomento
-                await generateDetailed(topics, apiKey);
-                
-                // Generazione quiz per ogni argomento
-                await generateQuiz(topics, apiKey);
-            } catch (error) {
-                console.error('Errore durante la generazione:', error);
-                errorElement.textContent = `Errore: ${error.message || 'Si è verificato un errore durante la comunicazione con l\'API.'}`;
-                errorElement.classList.remove('hidden');
-            } finally {
-                // Riabilita il pulsante
-                generateBtn.disabled = false;
-                generateBtn.textContent = 'Genera Materiale di Studio';
-                
-                // Nascondi gli indicatori di caricamento
-                document.getElementById('overview-loading').classList.add('hidden');
-                document.getElementById('detailed-loading').classList.add('hidden');
-                document.getElementById('quiz-loading').classList.add('hidden');
-            }
-        });
-        
-        // Funzione per generare la panoramica
-        async function generateOverview(topics, apiKey) {
-            const overviewResults = document.getElementById('overview-results');
-            
-            const prompt = `Sei un tutor esperto che aiuta gli studenti a prepararsi per l'esame di maturità. 
-            Crea una panoramica concisa ma completa dei seguenti argomenti:
-            ${topics.join('\n')}
-            
-            Per ogni argomento fornisci:
-            1. Una breve descrizione (2-3 frasi)
-            2. I concetti chiave da ricordare (3-5 punti)
-            3. Un consiglio su come studiare efficacemente questo argomento
-            
-            Formatta la risposta in modo chiaro e leggibile, utilizzando titoli e sottotitoli.`;
-            
-            try {
-                const response = await callGoogleAI(prompt, apiKey);
-                
-                // Crea un elemento per il risultato
-                const resultDiv = document.createElement('div');
-                resultDiv.className = 'result-card';
-                resultDiv.innerHTML = `<div>${formatTextWithMarkdown(response)}</div>`;
-                
-                overviewResults.appendChild(resultDiv);
-            } catch (error) {
-                throw new Error(`Errore nella generazione della panoramica: ${error.message}`);
-            }
-        }
-        
-        // Funzione per generare contenuti dettagliati per ogni argomento
-        async function generateDetailed(topics, apiKey) {
-            const detailedResults = document.getElementById('detailed-results');
-            
-            for (const topic of topics) {
-                const prompt = `Sei un insegnante esperto che prepara gli studenti per l'esame di maturità.
-                Crea una spiegazione dettagliata e approfondita dell'argomento: "${topic}".
-                
-                Includi:
-                1. Una spiegazione completa dell'argomento
-                2. Esempi pertinenti e casi di studio
-                3. Collegamenti con altri argomenti correlati
-                4. Possibili domande d'esame su questo argomento e come rispondere efficacemente
-                
-                La spiegazione deve essere accurata, ben strutturata e utile per la preparazione all'esame.`;
-                
-                try {
-                    const response = await callGoogleAI(prompt, apiKey);
-                    
-                    // Crea un elemento per il risultato
-                    const resultDiv = document.createElement('div');
-                    resultDiv.className = 'result-card';
-                    resultDiv.innerHTML = `
-                        <h3>${topic}</h3>
-                        <div>${formatTextWithMarkdown(response)}</div>
-                    `;
-                    
-                    detailedResults.appendChild(resultDiv);
-                } catch (error) {
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'error';
-                    errorDiv.textContent = `Errore per l'argomento "${topic}": ${error.message}`;
-                    detailedResults.appendChild(errorDiv);
-                }
-            }
-        }
-        
-        // Funzione per generare quiz per ogni argomento
-        async function generateQuiz(topics, apiKey) {
-            const quizResults = document.getElementById('quiz-results');
-            
-            for (const topic of topics) {
-                const prompt = `Sei un insegnante che prepara quiz per gli studenti che affronteranno l'esame di maturità.
-                Crea un quiz di 5 domande sull'argomento: "${topic}".
-                
-                Per ogni domanda:
-                1. Scrivi la domanda
-                2. Fornisci 4 possibili risposte (solo una corretta)
-                3. Indica la risposta corretta
-                4. Spiega brevemente perché quella è la risposta corretta
-                
-                Le domande devono coprire aspetti importanti dell'argomento che potrebbero essere richiesti all'esame.`;
-                
-                try {
-                    const response = await callGoogleAI(prompt, apiKey);
-                    
-                    // Crea un elemento per il risultato
-                    const resultDiv = document.createElement('div');
-                    resultDiv.className = 'result-card';
-                    resultDiv.innerHTML = `
-                        <h3>Quiz: ${topic}</h3>
-                        <div>${formatTextWithMarkdown(response)}</div>
-                    `;
-                    
-                    quizResults.appendChild(resultDiv);
-                } catch (error) {
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'error';
-                    errorDiv.textContent = `Errore nella generazione del quiz per "${topic}": ${error.message}`;
-                    quizResults.appendChild(errorDiv);
-                }
-            }
-        }
-        
-        // Funzione per chiamare l'API di Google AI Studio
-        async function callGoogleAI(prompt, apiKey) {
-            const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
-            
-            const requestBody = {
-                contents: [{
-                    parts: [{
-                        text: prompt
-                    }]
-                }],
-                generationConfig: {
-                    temperature: 0.2,
-                    maxOutputTokens: 4096
-                }
-            };
-            
-            try {
-                const response = await fetch(`${apiUrl}?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestBody)
-                });
-                
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error?.message || `Errore API (${response.status})`);
-                }
-                
-                const data = await response.json();
-                
-                if (data.candidates && data.candidates.length > 0 && 
-                    data.candidates[0].content && 
-                    data.candidates[0].content.parts && 
-                    data.candidates[0].content.parts.length > 0) {
-                    return data.candidates[0].content.parts[0].text;
-                } else {
-                    throw new Error('Risposta API non valida');
-                }
-            } catch (error) {
-                console.error('Errore API:', error);
-                throw error;
-            }
-        }
-        
-        // Funzione per formattare il testo con markdown base
-        function formatTextWithMarkdown(text) {
-            // Converti i titoli
-            text = text.replace(/^# (.+)$/gm, '<h2>$1</h2>');
-            text = text.replace(/^## (.+)$/gm, '<h3>$1</h3>');
-            text = text.replace(/^### (.+)$/gm, '<h4>$1</h4>');
-            
-            // Converti il grassetto
-            text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-            
-            // Converti il corsivo
-            text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
-            
-            // Converti gli elenchi puntati
-            text = text.replace(/^- (.+)$/gm, '<li>$1</li>');
-            text = text.replace(/(<li>.+<\/li>\n)+/g, '<ul>$&</ul>');
-            
-            // Converti gli elenchi numerati
-            text = text.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
-            text = text.replace(/(<li>.+<\/li>\n)+/g, '<ol>$&</ol>');
-            
-            // Converti i paragrafi (linee vuote)
-            text = text.replace(/\n\n/g, '</p><p>');
-            
-            // Avvolgi tutto in un paragrafo
-            text = '<p>' + text + '</p>';
-            
-            // Pulisci paragrafi vuoti
-            text = text.replace(/<p><\/p>/g, '');
-            
-            return text;
-        }
-    </script>
+
+    <!-- Collegamento al file JavaScript esterno, caricato dopo il parsing dell'HTML -->
+    <script src="script.js"></script>
 </body>
 </html>
