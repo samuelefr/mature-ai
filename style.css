@@ -289,3 +289,10 @@ button:disabled {
     font-weight: 600;
     color: #217dbb;
 }
+
+.lettera {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #ff0000;
+    margin-bottom: 12px;
+}
