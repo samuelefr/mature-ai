@@ -412,5 +412,5 @@ function scaricaDOCX(contenutoHtml, nomeFile) {
         alert("Si è verificato un errore durante la creazione del DOCX.");
     }
 }
-
-gsap.to(".lettera", {rotation: 360, x: 100, duration: 2});
+// Animazione di esempio con GSAP
+gsap.to(".header h1", {rotation: 360, duration: 2, delay: 1});
