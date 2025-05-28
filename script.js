@@ -413,4 +413,5 @@ function scaricaDOCX(contenutoHtml, nomeFile) {
     }
 }
 // Animazione di esempio con GSAP
-gsap.to(".header h1", {rotation: 360, duration: 2, delay: 1});
+
+gsap.to(".header img", {rotation:340, x: -200, y: -180, duration: 2, delay: 1});

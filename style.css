@@ -16,9 +16,13 @@ body {
    Intestazione principale
    ========================= */
 .header {
-    text-align: center; /* Centra il testo */
+    display: flex;
+    flex-direction: column; /* Colonna per titolo e immagine */
+    align-items: center;
+    text-align: left; /* Centra il testo */
     margin-bottom: 32px; /* Spazio sotto l’intestazione */
     color: #2c3e50; /* Colore blu/grigio scuro */
+    gap:50px; /* Spazio tra immagine e testo */
 }
 .header h1 {
     font-size: 2.5rem;
@@ -29,7 +33,11 @@ body {
     font-size: 1.15rem;
     color: #34495e;
 }
-
+.header img {
+    margin-bottom: 0;
+    margin-right: 0;
+    max-width: 100px; /* Limita la larghezza dell’immagine */
+}
 /* =========================
    Layout principale (Flexbox)
    ========================= */
