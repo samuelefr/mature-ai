@@ -16,9 +16,15 @@
     <!-- GSAP per animazioni avanzate -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/InertiaPlugin.min.js"></script>
     <script src="script.js"></script>
 </head>
 <body>
+    <label class="toggle" id="theme-toggle">
+        <input type="checkbox" id="toggle" onclick="toggleTheme()">
+        <span class="slider round"></span>
+    </label>
     <!-- Intestazione principale -->
     <div class="header">
         <h1>Maturità AI Helper</h1> 
@@ -99,6 +105,7 @@ Il sistema nervoso umano"></textarea>
     </div>
    
 
+   
     <!-- Collegamento al file JavaScript esterno, caricato dopo il parsing dell'HTML -->
     <script src="script.js"></script>
 </body>

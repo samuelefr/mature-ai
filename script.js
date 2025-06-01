@@ -1,4 +1,5 @@
 // Funzione per aprire le schede (tab)
+
 function apriScheda(evento, nomeScheda) {
     const contenutiScheda = document.getElementsByClassName("tabcontent");
     for (let i = 0; i < contenutiScheda.length; i++) {
@@ -415,3 +416,21 @@ function scaricaDOCX(contenutoHtml, nomeFile) {
 // Animazione di esempio con GSAP
 
 gsap.to(".header img", {rotation:340, x: -200, y: -180, duration: 2, delay: 1});
+Draggable.create(".header img", {
+    bounds: {
+        minX: -900,
+        maxX: 900,
+        minY: -900,
+        maxY: 900
+        
+    },
+    inertia: true,
+    onDragEnd: function() {
+        gsap.to(".header img", {rotation: 340, x: -200, y: -180, duration: 1});
+    }
+});
+
+function toggleTheme() {
+    document.body.classList.toggle('dark');
+}
+

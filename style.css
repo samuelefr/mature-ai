@@ -146,7 +146,7 @@ button:disabled {
 
 /* Spinner animato */
 .spinner {
-    border: 4px solid rgba(0, 0, 0, 0.09);
+    border: 4px solid rgba(121, 18, 18, 0.09);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -157,7 +157,7 @@ button:disabled {
     margin-right: 10px;
 }
 @keyframes spin {
-    0% { transform: rotate(0deg);}
+    100% { transform: rotate(0deg);}
     100% { transform: rotate(360deg);}
 }
 
@@ -298,3 +298,172 @@ button:disabled {
     color: #217dbb;
 }
 
+.tema button {
+    background: #f39c12;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+/* Tema scuro */
+body.dark {
+    background: linear-gradient(120deg, #232526 0%, #414345 100%);
+    color: #f1f1f1;
+}
+button.dark .generate {
+    background: #f39c12;
+    color: #fff;
+}
+
+body.dark .header {
+    color: #f1f1f1;
+}
+body.dark .header p {
+    color: #bfc9d1;
+}
+body.dark .input-section,
+body.dark .results-section {
+    background: #23272e;
+    color: #f1f1f1;
+}
+body.dark .result-card {
+    background: #2c2f36;
+    border-left-color: #f39c12;
+}
+body.dark .tab {
+    background: #23272e;
+    border-color: #444;
+}
+body.dark .tab button {
+    color: #f1f1f1;
+    background: #23272e;
+}
+body.dark .tab button.active {
+    background: #f39c12;
+    color: #fff;
+}
+body.dark .tabcontent {
+    background: #23272e;
+    border-color: #444;
+}
+body.dark .download-buttons button {
+    background: #f39c12 !important;
+    color: #fff !important;
+}
+body.dark .download-buttons button:hover,
+body.dark .download-buttons button:focus {
+    background: #e67e22 !important;
+}
+body.dark .error {
+    background: #3d1f1f;
+    color: #ffb3b3;
+    border-left-color: #e74c3c;
+}
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;  
+    bottom: 4px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: 0.4s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+input:checked + .slider {
+    background-color: #f39c12;
+}
+input:checked + .slider::before {
+    background-color: black;
+}
+input:focus + .slider {
+    box-shadow: 0 0 1px #f39c12;
+}
+input:checked + .slider::before {
+    transform: translateX(26px);
+}
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round::before {
+    border-radius: 50%;
+}
+.toggle{
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 20px;
+}
+.toggle input {
+    opacity: 1;
+    width: 0;
+    height: 0;
+}
+.toggle .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+/* Toggle tema in alto a destra */
+#theme-toggle {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    z-index: 1000;
+    background: rgba(255,255,255,0.7);
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+    padding: 4px 10px;
+    transition: background 0.3s;
+}
+body.dark #theme-toggle {
+    background: rgba(44,62,80,0.7);
+}
+body.dark #generate-btn {
+    background: #f39c12 !important;
+    color: #fff !important;
+}
+body.dark #generate-btn:hover,
+body.dark #generate-btn:focus {
+    background: #e67e22 !important;
+}
+body.dark textarea {
+    background: #2c2f36;
+    color: #fff;
+    border: 1.5px solid #f39c12;
+}
+body.dark textarea:focus {
+    border-color: #e67e22;
+    background: #23272e;
+}
+
+/* Cerchio dei bottoni di download arancione in dark */
+body.dark .download-buttons button {
+    background: #f39c12 !important;
+    color: #fff !important;
+}
+body.dark .download-buttons button:hover,
+body.dark .download-buttons button:focus {
+    background: #e67e22 !important;
+}
+
+/* Titoletti delle card arancioni in dark */
+body.dark .result-card h1,
+body.dark .result-card h2,
+body.dark .result-card h3,
+body.dark .result-card h4,
+body.dark .result-card h5,
+body.dark .result-card h6 {
+    color: #f39c12 !important;
+}
