@@ -2,14 +2,14 @@
    Stile generale della pagina
    ========================= */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font leggibile e moderno */
-    line-height: 1.7; /* Migliora la leggibilità */
-    color: #222; /* Testo più scuro per maggiore contrasto */
-    max-width: 1200px; /* Larghezza massima del contenuto */
-    margin: 0 auto; /* Centra il contenuto */
-    padding: 24px; /* Spaziatura attorno al contenuto */
-    background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%); /* Sfondo sfumato */
-    min-height: 100vh; /* Copre tutta l’altezza della finestra */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    color: #f1f1f1;
+    background: linear-gradient(120deg, #232526 0%, #414345 100%);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    min-height: 100vh;
 }
 
 /* =========================
@@ -17,57 +17,59 @@ body {
    ========================= */
 .header {
     display: flex;
-    flex-direction: column; /* Colonna per titolo e immagine */
+    flex-direction: column;
     align-items: center;
-    text-align: left; /* Centra il testo */
-    margin-bottom: 32px; /* Spazio sotto l’intestazione */
-    color: #2c3e50; /* Colore blu/grigio scuro */
-    gap:50px; /* Spazio tra immagine e testo */
+    text-align: center;
+    margin-bottom: 3px;
+    padding: 24px;
+    color: #f1f1f1;
 }
 .header h1 {
     font-size: 2.5rem;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
-}
+    font-weight: 600;
+    margin: 0;
+    }
 .header p {
     font-size: 1.15rem;
-    color: #34495e;
+    color: #bfc9d1;
 }
 .header img {
     margin-bottom: 0;
     margin-right: 0;
-    max-width: 100px; /* Limita la larghezza dell’immagine */
+    max-width: 100px;
 }
+
 /* =========================
    Layout principale (Flexbox)
    ========================= */
 .container {
-    display: flex; /* Layout flessibile */
-    gap: 24px; /* Spazio tra le colonne */
-    flex-wrap: wrap; /* Permette di andare a capo su schermi piccoli */
-    align-items: flex-start; /* Allinea in alto */
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 /* =========================
    Sezioni input e risultati
    ========================= */
 .input-section, .results-section {
-    background: #fff; /* Sfondo bianco */
-    border-radius: 10px; /* Angoli arrotondati */
-    padding: 24px; /* Spaziatura interna */
-    box-shadow: 0 4px 16px rgba(44, 62, 80, 0.07); /* Ombra leggera */
+    background: #23272e;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(44, 62, 80, 0.07);
+    color: #f1f1f1;
 }
 
 /* Sezione input */
 .input-section {
-    flex: 1 1 320px; /* Occupa almeno 320px, cresce se serve */
+    flex: 1 1 320px;
     min-width: 280px;
     max-width: 400px;
 }
 
 /* Sezione risultati */
 .results-section {
-    flex: 2 1 600px; /* Occupa più spazio rispetto all’input */
+    flex: 2 1 600px;
     min-width: 340px;
 }
 
@@ -78,26 +80,29 @@ textarea {
     width: 95%;
     height: 200px;
     padding: 10px;
-    border: 1.5px solid #d0d7de;
+    border: 1.5px solid #f39c12;
     border-radius: 6px;
     resize: vertical;
     font-family: inherit;
     font-size: 15px;
     margin-bottom: 18px;
-    background: #f8fafc;
+    background: #2c2f36;
+    color: #fff;
     transition: border-color 0.2s;
 }
 textarea:focus {
-    border-color: #3498db;
-    outline: none;
+    border-color: #e67e22;
+    background: #23272e;
 }
 
 /* =========================
    Bottoni generali
    ========================= */
-button {
-    background: #3498db;
-    color: #fff;
+button,
+.tab button.active,
+.download-buttons button {
+    background: #f39c12 !important;
+    color: #fff !important;
     border: none;
     padding: 11px 22px;
     border-radius: 5px;
@@ -107,9 +112,10 @@ button {
     transition: background 0.2s, box-shadow 0.2s;
     box-shadow: 0 2px 6px rgba(255, 255, 255, 0.07);
 }
-button:hover, button:focus {
-    background: #217dbb;
-    outline: none;
+button:hover, button:focus,
+.tab button.active:hover, .tab button.active:focus,
+.download-buttons button:hover, .download-buttons button:focus {
+    background: #e67e22 !important;
 }
 button:disabled {
     background: #b2bec3;
@@ -120,16 +126,23 @@ button:disabled {
    Card dei risultati
    ========================= */
 .result-card {
-    background: #f9f9fb;
-    border-left: 5px solid #3498db;
+    background: #2c2f36;
+    border-left: 5px solid #f39c12;
     padding: 18px 18px 12px 18px;
     margin-bottom: 18px;
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
 }
-.result-card h3 {
-    margin-top: 0;
-    color: #2c3e50;
+.result-card h1,
+.result-card h2,
+.result-card h3,
+.result-card h4,
+.result-card h5,
+.result-card h6 {
+    margin-top: 12px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #f39c12 !important;
     font-size: 1.25rem;
 }
 
@@ -150,7 +163,7 @@ button:disabled {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border-left-color: #3498db;
+    border-left-color: #f39c12;
     animation: spin 1s linear infinite;
     display: inline-block;
     vertical-align: middle;
@@ -165,9 +178,9 @@ button:disabled {
    Messaggi di errore
    ========================= */
 .error {
-    color: #e74c3c;
+    color: #ffb3b3;
     padding: 12px;
-    background: #fdecea;
+    background: #3d1f1f;
     border-radius: 5px;
     margin-bottom: 16px;
     border-left: 4px solid #e74c3c;
@@ -186,14 +199,15 @@ button:disabled {
     width: 100%;
     padding: 9px;
     margin-bottom: 10px;
-    border: 1.5px solid #d0d7de;
+    border: 1.5px solid #f39c12;
     border-radius: 5px;
     font-size: 1rem;
-    background: #f8fafc;
+    background: #2c2f36;
+    color: #fff;
     transition: border-color 0.2s;
 }
 .api-settings input:focus {
-    border-color: #3498db;
+    border-color: #e67e22;
     outline: none;
 }
 
@@ -202,42 +216,37 @@ button:disabled {
    ========================= */
 .tab {
     overflow: hidden;
-    border: 1px solid #ccc;
-    background: #f1f1f1;
+    border: 1px solid #444;
+    background: #23272e;
     border-radius: 6px 6px 0 0;
     margin-bottom: -1px;
 }
 .tab button {
-    background: inherit;
+    background: #23272e;
     float: left;
     border: none;
     outline: none;
     cursor: pointer;
     padding: 12px 20px;
     transition: 0.2s;
-    color: #333;
+    color: #f1f1f1;
     font-size: 1rem;
     border-radius: 6px 6px 0 0;
     margin-right: 2px;
 }
-.tab button:hover, .tab button:focus {
-    background: #e3eaf2;
-}
 .tab button.active {
-    background: #3498db;
-    color: #fff;
+    background: #f39c12 !important;
+    color: #fff !important;
     font-weight: 600;
 }
-
-/* Contenuto delle tab */
 .tabcontent {
     display: none;
     padding: 24px;
-    border: 1px solid #ccc;
+    border: 1px solid #444;
     border-top: none;
     border-radius: 0 0 6px 6px;
     animation: fadeEffect 0.7s;
-    background: #fff;
+    background: #23272e;
 }
 @keyframes fadeEffect {
     from {opacity: 0;}
@@ -255,18 +264,8 @@ button:disabled {
 }
 .download-buttons button {
     margin-left: 10px;
-    background: #2ecc71;
-    color: #fff;
-    font-weight: 500;
-    transition: background 0.2s;
-}
-.download-buttons button:hover, .download-buttons button:focus {
-    background: #27ae60;
 }
 
-/* =========================
-   Utilità e responsive
-   ========================= */
 .hidden {
     display: none !important;
 }

@@ -299,11 +299,7 @@ function aggiungiBottoniDownload(elementoRisultato, nomeBaseFile, contenutoMarkd
     bottonePdf.onclick = () => scaricaPDF(elementoRisultato.querySelector('div:not(.download-buttons)'), nomeBaseFile);
     divBottoni.appendChild(bottonePdf);
 
-    const bottoneDocx = document.createElement('button');
-    bottoneDocx.textContent = 'Scarica DOCX';
-    const contenutoHtmlDocx = elementoRisultato.querySelector('div:not(.download-buttons)').innerHTML;
-    bottoneDocx.onclick = () => scaricaDOCX(contenutoHtmlDocx, nomeBaseFile);
-    divBottoni.appendChild(bottoneDocx);
+    
 
     elementoRisultato.appendChild(divBottoni);
 }
@@ -364,58 +360,9 @@ async function scaricaPDF(elementoDaRenderizzare, nomeFile) {
     }
 }
 
-function scaricaDOCX(contenutoHtml, nomeFile) {
-    if (!window.htmlDocx) {
-         alert("La libreria DOCX (html-docx-js-typescript) non è caricata.");
-        return;
-    }
-
-    const contenutoPerDocx = `
-        <!DOCTYPE html>
-        <html lang="it">
-        <head>
-            <meta charset="UTF-8">
-            <title>${nomeFile}</title>
-            <style>
-                body { font-family: Calibri, sans-serif; font-size: 11pt; }
-                h1 { font-size: 16pt; font-weight: bold; }
-                h2 { font-size: 14pt; font-weight: bold; }
-                h3 { font-size: 12pt; font-weight: bold; }
-                strong { font-weight: bold; }
-                em { font-style: italic; }
-                ul, ol { margin-left: 20px; }
-            </style>
-        </head>
-        <body>
-            ${contenutoHtml}
-        </body>
-        </html>
-    `;
-
-    try {
-        const fileBuffer = htmlDocx.asBlob(contenutoPerDocx, {
-            orientation: 'portrait',
-            margins: {
-                top: 720,
-                right: 720,
-                bottom: 720,
-                left: 720,
-                header: 360,
-                footer: 360,
-                gutter: 0
-            }
-        });
-
-        saveAs(fileBuffer, `${nomeFile}.docx`);
-
-    } catch (errore) {
-        console.error("Errore durante la creazione del DOCX:", errore);
-        alert("Si è verificato un errore durante la creazione del DOCX.");
-    }
-}
 // Animazione di esempio con GSAP
 
-gsap.to(".header img", {rotation:340, x: -200, y: -180, duration: 2, delay: 1});
+gsap.to(".header img", {rotation:340, x: -400, y: 0, duration: 2, delay: 1});
 Draggable.create(".header img", {
     bounds: {
         minX: -900,
@@ -426,11 +373,7 @@ Draggable.create(".header img", {
     },
     inertia: true,
     onDragEnd: function() {
-        gsap.to(".header img", {rotation: 340, x: -200, y: -180, duration: 1});
+        gsap.to(".header img", {rotation: 340, x: -400, y: 0, duration: 1});
     }
 });
-
-function toggleTheme() {
-    document.body.classList.toggle('dark');
-}
 
