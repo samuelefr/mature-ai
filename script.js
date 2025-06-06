@@ -317,11 +317,17 @@ async function scaricaPDF(elementoDaRenderizzare, nomeFile) {
         document.activeElement.disabled = true;
     }
 
+    // Forza sfondo bianco e testo nero per la stampa PDF
+    const stileOriginale = elementoDaRenderizzare.getAttribute('style') || '';
+    elementoDaRenderizzare.style.background = "#fff";
+    elementoDaRenderizzare.style.color = "#111";
+
     try {
         const canvas = await html2canvas(elementoDaRenderizzare, {
             scale: 2,
             useCORS: true,
-            logging: false
+            logging: false,
+            backgroundColor: "#fff" // Sfondo bianco nel canvas
         });
         const imgData = canvas.toDataURL('image/png');
 
@@ -331,28 +337,63 @@ async function scaricaPDF(elementoDaRenderizzare, nomeFile) {
             format: 'a4'
         });
 
-        const imgProps= pdf.getImageProperties(imgData);
         const larghezzaPdf = pdf.internal.pageSize.getWidth();
         const altezzaPdf = pdf.internal.pageSize.getHeight();
 
-        const larghezzaImg = imgProps.width;
-        const altezzaImg = imgProps.height;
+        // Calcola dimensioni immagine in mm
+        const larghezzaImg = canvas.width * 0.264583; // px to mm
+        const altezzaImg = canvas.height * 0.264583;
 
-        const rapporto = Math.min( (larghezzaPdf - 20) / larghezzaImg, (altezzaPdf - 20) / altezzaImg);
+        let rapporto = larghezzaPdf / larghezzaImg;
+        let nuovaLarghezza = larghezzaPdf;
+        let nuovaAltezza = altezzaImg * rapporto;
 
-        const nuovaLarghezza = larghezzaImg * rapporto;
-        const nuovaAltezza = altezzaImg * rapporto;
+        let posizioneY = 0;
+        let pagina = 0;
 
-        const x = (larghezzaPdf - nuovaLarghezza) / 2;
-        const y = 10;
+        // Calcola l'altezza di una pagina A4 in px rispetto al rapporto
+        const altezzaPaginaPx = Math.floor((altezzaPdf / 0.264583) / rapporto);
 
-        pdf.addImage(imgData, 'PNG', x, y, nuovaLarghezza, nuovaAltezza);
+        while (posizioneY < canvas.height) {
+            const canvasPagina = document.createElement('canvas');
+            canvasPagina.width = canvas.width;
+            // Se è l'ultima pagina, prendi solo la parte rimanente
+            const altezzaCorrente = Math.min(altezzaPaginaPx, canvas.height - posizioneY);
+            canvasPagina.height = altezzaCorrente;
+
+            const ctx = canvasPagina.getContext('2d');
+            ctx.drawImage(
+                canvas,
+                0, posizioneY,
+                canvas.width, altezzaCorrente,
+                0, 0,
+                canvas.width, altezzaCorrente
+            );
+
+            const imgDataPagina = canvasPagina.toDataURL('image/png');
+            if (pagina > 0) pdf.addPage();
+            // Calcola l'altezza in mm per questa pagina
+            const altezzaMm = (altezzaCorrente * 0.264583) * rapporto;
+            pdf.addImage(
+                imgDataPagina,
+                'PNG',
+                0,
+                0,
+                nuovaLarghezza,
+                altezzaMm
+            );
+            posizioneY += altezzaCorrente;
+            pagina++;
+        }
+
         pdf.save(`${nomeFile}.pdf`);
 
     } catch (errore) {
         console.error("Errore durante la creazione del PDF:", errore);
         alert("Si è verificato un errore durante la creazione del PDF.");
     } finally {
+        // Ripristina stile originale
+        elementoDaRenderizzare.setAttribute('style', stileOriginale);
         if (document.activeElement.tagName === "BUTTON") {
             document.activeElement.textContent = testoOriginaleBottone;
             document.activeElement.disabled = false;
