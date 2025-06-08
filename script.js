@@ -313,7 +313,7 @@ async function scaricaPDF(elementoDaRenderizzare, nomeFile) {
 
     const testoOriginaleBottone = document.activeElement.textContent;
     if (document.activeElement.tagName === "BUTTON") {
-        document.activeElement.textContent = "Creazione PDF...";
+        
         document.activeElement.disabled = true;
     }
 

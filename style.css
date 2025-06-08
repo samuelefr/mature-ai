@@ -466,3 +466,63 @@ body.dark .result-card h5,
 body.dark .result-card h6 {
     color: #f39c12 !important;
 }
+
+/* =========================
+   Media Queries
+   ========================= */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        gap: 0;
+    }
+    .input-section, .results-section {
+        min-width: 0;
+        max-width: 100%;
+        margin-bottom: 24px;
+    }
+    .tabcontent {
+        padding: 14px;
+    }
+    .header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+    }
+    .input-section, .results-section {
+        min-width: 0;
+        max-width: 100%;
+        margin-bottom: 16px;
+        padding: 10px;
+    }
+    .tabcontent {
+        padding: 8px;
+    }
+    .header {
+        padding: 10px;
+    }
+    .header h1 {
+        font-size: 1.3rem;
+    }
+    textarea {
+        width: 100%;
+        font-size: 1rem;
+        height: 120px;
+    }
+    .result-card {
+        padding: 10px;
+    }
+    .download-buttons {
+        padding-top: 8px;
+        font-size: 0.95rem;
+    }
+    button, .download-buttons button {
+        padding: 8px 12px;
+        font-size: 0.95rem;
+    }
+}
