@@ -15,22 +15,38 @@ function apriScheda(evento, nomeScheda) {
     evento.currentTarget.className += " active";
 }
 
+function aggiornaTentativiRimasti() {
+    const tentativiDiv = document.getElementById('attempts-left');
+    const chiaveApi = document.getElementById('api-key').value.trim();
+    if (chiaveApi) {
+        tentativiDiv.textContent = "Stai usando la tua API Key personale.";
+        tentativiDiv.style.color = "#27ae60";
+    } else {
+        let usesLeft = parseInt(localStorage.getItem('api_key_uses_left') || MAX_USES, 10);
+        tentativiDiv.textContent = `Tentativi gratuiti rimasti: ${usesLeft}`;
+        tentativiDiv.style.color = usesLeft > 0 ? "#f39c12" : "#e74c3c";
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const chiaveSalvata = localStorage.getItem('google_ai_api_key');
     if (chiaveSalvata) {
         document.getElementById('api-key').value = chiaveSalvata;
     }
-
     document.getElementById('api-key').addEventListener('change', (e) => {
         localStorage.setItem('google_ai_api_key', e.target.value);
+        aggiornaTentativiRimasti();
     });
+    aggiornaTentativiRimasti();
 });
+
+const API_KEY_PREIMPOSTATA = "AIzaSyD78cCKrMYt9bQTS3JT_7TzSNEliIrEsmw"; 
+const MAX_USES = 10;
 
 document.getElementById('generate-btn').addEventListener('click', async () => {
     const testoArgomenti = document.getElementById('topics-input').value.trim();
-    const chiaveApi = document.getElementById('api-key').value.trim();
+    let chiaveApi = document.getElementById('api-key').value.trim();
     const elementoErrore = document.getElementById('error-message');
-
     elementoErrore.classList.add('hidden');
 
     if (!testoArgomenti) {
@@ -39,10 +55,27 @@ document.getElementById('generate-btn').addEventListener('click', async () => {
         return;
     }
 
+    // Se l'utente NON ha inserito la sua API key, usa la tua e scala i tentativi
     if (!chiaveApi) {
-        elementoErrore.textContent = 'È necessaria una chiave API di Google AI Studio.';
-        elementoErrore.classList.remove('hidden');
-        return;
+        let usesLeft = parseInt(localStorage.getItem('api_key_uses_left') || MAX_USES, 10);
+        if (usesLeft > 0) {
+            chiaveApi = API_KEY_PREIMPOSTATA;
+            usesLeft--;
+            localStorage.setItem('api_key_uses_left', usesLeft);
+            aggiornaTentativiRimasti();
+            if (usesLeft === 0) {
+                elementoErrore.textContent = "Hai esaurito i tentativi gratuiti. Inserisci la tua API Key personale per continuare a usare il servizio.";
+                elementoErrore.classList.remove('hidden');
+            }
+        } else {
+            aggiornaTentativiRimasti();
+            elementoErrore.textContent = "Hai esaurito i tentativi gratuiti. Inserisci la tua API Key personale per continuare a usare il servizio.";
+            elementoErrore.classList.remove('hidden');
+            return;
+        }
+    } else {
+        // Se l'utente ha inserito la sua API key, mostra il messaggio verde
+        aggiornaTentativiRimasti();
     }
 
     const argomenti = testoArgomenti.split('\n').filter(argomento => argomento.trim() !== '');

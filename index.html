@@ -20,21 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/InertiaPlugin.min.js"></script>
-    <script src="script.js"></script>
 </head>
-<body>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3853582673171535"
-     crossorigin="anonymous"></script>
-<!-- ads -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3853582673171535"
-     data-ad-slot="3836900081"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+
     <!-- Intestazione principale -->
     <div class="header">
         <h1>Maturità AI Helper 
@@ -58,6 +45,7 @@ Il sistema nervoso umano"></textarea>
 
             <!-- Pulsante per avviare la generazione del materiale -->
             <button id="generate-btn">Genera Materiale di Studio</button>
+            <div id="attempts-left" style="margin-top:8px; color:#f39c12; font-weight:bold;"></div>
             <!-- Elemento per mostrare eventuali messaggi di errore, nascosto di default -->
             <div id="error-message" class="error hidden"></div>
 
