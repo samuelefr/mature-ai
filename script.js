@@ -435,19 +435,30 @@ async function scaricaPDF(elementoDaRenderizzare, nomeFile) {
 }
 
 // Animazione di esempio con GSAP
+function animaCappellino() {
+    const img = document.querySelector(".header img");
+    if (window.innerWidth <= 600) {
+        // Animazione diversa per mobile
+        gsap.to(img, {rotation: 700, x: -130, y: -80, duration: 2, delay: 1});
+    } else {
+        // Animazione desktop
+        gsap.to(img, {rotation: 340, x: -400, y: 0, duration: 2, delay: 1});
+    }
+}
 
-gsap.to(".header img", {rotation:340, x: -400, y: 0, duration: 2, delay: 1});
+animaCappellino();
+window.addEventListener('resize', animaCappellino);
+
 Draggable.create(".header img", {
     bounds: {
         minX: -900,
         maxX: 900,
         minY: -900,
         maxY: 900
-        
     },
     inertia: true,
     onDragEnd: function() {
-        gsap.to(".header img", {rotation: 340, x: -400, y: 0, duration: 1});
+        animaCappellino();
     }
 });
 
