@@ -292,18 +292,20 @@ button:disabled {
         padding: 6vw;
     }
     .header h1 {
-        font-size: 8vw;
-        margin-top: 10vw;
+        font-size: 6vw;
+        margin-top: 6vw;
     }
     .header p {
         margin-top: 0.2vw;
         font-size: 4vw;
     }
-    .api-settings input {
+    
+.api-settings input {
         width: 70%;
         font-size: 0.95rem;
         height: 28px;
         padding: 5px;
+        width: 100%;
     }
     .container {
         padding: 0 2vw;
@@ -321,5 +323,6 @@ button:disabled {
         min-width: 85%;
         
     }
+
 }
 
