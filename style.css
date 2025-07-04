@@ -515,6 +515,9 @@ body.dark .result-card h6 {
         font-size: 25px;
         margin-top : 32px;
     }
+    .header p {
+        margin-top: 0.5rem;
+    }
     textarea {
         width: 100%;
         font-size: 1rem;
