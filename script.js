@@ -437,9 +437,9 @@ async function scaricaPDF(elementoDaRenderizzare, nomeFile) {
 // Animazione di esempio con GSAP
 function animaCappellino() {
     const img = document.querySelector(".header img");
-    if (window.innerWidth <= 600) {
+    if (window.innerWidth <= 900) {
         // Animazione diversa per mobile
-        gsap.to(img, {rotation: 700, x: -130, y: -80, duration: 2, delay: 1});
+        gsap.to(img, {rotation: 700, x: -130, y: -200, duration: 2, delay: 1});
     } else {
         // Animazione desktop
         gsap.to(img, {rotation: 340, x: -400, y: 0, duration: 2, delay: 1});
