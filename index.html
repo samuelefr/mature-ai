@@ -21,10 +21,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/InertiaPlugin.min.js"></script>
 </head>
-
+<body>
     <!-- Intestazione principale -->
     <div class="header">
-        <br><br><h1>Maturità AI Helper 
+        <br><br>
+        <h1>Maturità AI Helper 
             <img src="img/1f393.png" alt="Logo Maturità AI Helper" class="logo">
         </h1>
         <p>Inserisci gli argomenti da studiare e lascia che l'intelligenza artificiale ti aiuti nella preparazione</p>
@@ -45,40 +46,46 @@ Il sistema nervoso umano"></textarea>
 
             <!-- Pulsante per avviare la generazione del materiale -->
             <button id="generate-btn">Genera Materiale di Studio</button>
-            <div id="attempts-left" style="margin-top:8px; color:#f39c12; font-weight:bold;"></div>
+            <div id="attempts-left"></div>
             <!-- Elemento per mostrare eventuali messaggi di errore, nascosto di default -->
             <div id="error-message" class="error hidden"></div>
 
             <!-- Sezione per le impostazioni dell'API -->
-            <div class="api-settings" style="text-align: left;">
-    <h3>Impostazioni API</h3>
-    <label for="api-key">API Key di Google AI Studio:</label><br><br>
-    <!-- Campo per l'inserimento della chiave API (tipo password per sicurezza) -->
-    <input type="password" id="api-key" placeholder="Inserisci la tua chiave API"><br>
-    <b>A cosa serve la chiave api ?</b>
-    <p>
-        La chiave API serve per comunicare con i server dell'intelligenza artificiale tramite una chiave personale e autorizzare le richieste dal tuo account.<br>
-        <b>La tua chiave API è memorizzata solo localmente nel tuo browser.</b>
-        <br><br>
-        <b>Tutorial per ottenere la chiave API:</b>
-        <ol style="margin-left:18px;">
-            <li>Clicca sull'immagine qui sotto per aprire la pagina di Google AI Studio dove generare la tua API Key.</li>
-            <a href="https://aistudio.google.com/app/apikey" target="_blank">
-                <img src="img/key-icon-26603.png" width="40" alt="Prendi la tua chiave API" style="vertical-align:middle;cursor:pointer;">
-            </a>
-            <li>Accedi con il tuo account Google.</li>
-            <li>Clicca su <b>"Crea API Key"</b>.</li>
-            <li>Copia la chiave generata.</li>
-            <li>Incolla la chiave nel campo qui sopra.</li>
-        </ol>
-        <b>Requisiti:</b>
-        <ul>
-            <li>Devi avere un account Google.</li>
-            <li>Devi avere spazio libero sul tuo Drive.</li>
-            <li>Devi cliccare su "Crea API Key" e copiarla qui.</li>
-        </ul>
-    </p>
-</div>
+            <div class="api-settings">
+                <h3>Impostazioni API</h3>
+                <label for="api-key">API Key di Google AI Studio:</label><br><br>
+                <!-- Campo per l'inserimento della chiave API (tipo password per sicurezza) -->
+                <input type="password" id="api-key" placeholder="Inserisci la tua chiave API"><br>
+                <div class="api-info">
+                    <p><strong>A cosa serve la chiave API?</strong></p>
+                    <p>
+                        La chiave API serve per comunicare con i server dell'intelligenza artificiale tramite una chiave personale e autorizzare le richieste dal tuo account.<br>
+                        <strong>La tua chiave API è memorizzata solo localmente nel tuo browser.</strong>
+                    </p>
+                    
+                    <p><strong>Tutorial per ottenere la chiave API:</strong></p>
+                    <ol>
+                        <li>Clicca sull'immagine qui sotto per aprire la pagina di Google AI Studio dove generare la tua API Key.</li>
+                        <li>
+                            <a href="https://aistudio.google.com/app/apikey" target="_blank" class="api-link">
+                                <img src="img/key-icon-26603.png" alt="Prendi la tua chiave API" class="api-icon">
+                                Ottieni API Key
+                            </a>
+                        </li>
+                        <li>Accedi con il tuo account Google.</li>
+                        <li>Clicca su <strong>"Crea API Key"</strong>.</li>
+                        <li>Copia la chiave generata.</li>
+                        <li>Incolla la chiave nel campo qui sopra.</li>
+                    </ol>
+                    
+                    <p><strong>Requisiti:</strong></p>
+                    <ul>
+                        <li>Devi avere un account Google.</li>
+                        <li>Devi avere spazio libero sul tuo Drive.</li>
+                        <li>Devi cliccare su "Crea API Key" e copiarla qui.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <!-- Sezione per mostrare i risultati -->
@@ -125,10 +132,7 @@ Il sistema nervoso umano"></textarea>
         </div>
     </div>
    
-
-   
     <!-- Collegamento al file JavaScript esterno, caricato dopo il parsing dell'HTML -->
     <script src="script.js"></script>
 </body>
-
 </html>

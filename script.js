@@ -437,28 +437,48 @@ async function scaricaPDF(elementoDaRenderizzare, nomeFile) {
 // Animazione di esempio con GSAP
 function animaCappellino() {
     const img = document.querySelector(".header img");
-    if (window.innerWidth <= 900) {
-        // Animazione diversa per mobile
-        gsap.to(img, {rotation: 700, x: -130, y: -200, duration: 2, delay: 1});
+    const header = document.querySelector(".header");
+    const headerWidth = header.offsetWidth;
+    const headerHeight = header.offsetHeight;
+
+    let xOffset, yOffset, rotation;
+
+    if (window.innerWidth <= 600) {
+        // Mobile piccolo
+        xOffset = -0.35 * headerWidth; // solo 10% verso sinistra
+        yOffset = -0.25 * headerHeight; // solo 15% verso l'alto
+        rotation = 340;
+    } else if (window.innerWidth <= 900) {
+        // Tablet
+        xOffset = -0.52 * headerWidth;
+        yOffset = -0.12 * headerHeight;
+        rotation = 350;
     } else {
-        // Animazione desktop
-        gsap.to(img, {rotation: 340, x: -400, y: 0, duration: 2, delay: 1});
+        // Desktop
+        xOffset = -0.35 * headerWidth;
+        yOffset = -0.10 * headerHeight;
+        rotation = 340;
     }
+
+    gsap.to(img, {
+        rotation: rotation,
+        x: xOffset,
+        y: yOffset,
+        duration: 2,
+        delay: 1
+    });
 }
 
 animaCappellino();
 window.addEventListener('resize', animaCappellino);
 
 Draggable.create(".header img", {
-    bounds: {
-        minX: -900,
-        maxX: 900,
-        minY: -900,
-        maxY: 900
-    },
+    bounds: ".header", 
     inertia: true,
     onDragEnd: function() {
         animaCappellino();
     }
 });
+
+
 

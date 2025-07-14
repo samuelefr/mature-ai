@@ -1,14 +1,18 @@
 /* =========================
-   Stile generale della pagina
+   Reset e base
    ========================= */
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.7;
     color: #f1f1f1;
     background: linear-gradient(120deg, #232526 0%, #414345 100%);
-    max-width: 1200px;
+    max-width: min(1200px, 95vw);
     margin: 0 auto;
-    padding: 24px;
+    padding: clamp(12px, 3vw, 24px);
     min-height: 100vh;
 }
 
@@ -20,23 +24,39 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 3px;
-    padding: 24px;
+    margin-bottom: clamp(20px, 5vw, 40px);
+    padding: clamp(12px, 4vw, 24px);
     color: #f1f1f1;
 }
+
 .header h1 {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
     font-weight: 600;
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(10px, 2vw, 20px);
 }
+
 .header p {
-    font-size: 1.15rem;
+    font-size: clamp(1rem, 3vw, 1.15rem);
     color: #bfc9d1;
+    margin-top: clamp(8px, 2vw, 16px);
+    max-width: 600px;
 }
-.header img {
-    margin-bottom: 0;
-    margin-right: 0;
-    max-width: 100px;
+
+.header img.logo {
+    width: clamp(40px, 8vw, 100px);
+    height: clamp(40px, 8vw, 100px);
+    object-fit: contain;
+    cursor: grab;
+    transition: transform 0.3s ease;
+}
+
+.header img.logo:hover {
+    transform: scale(1.1);
 }
 
 /* =========================
@@ -44,7 +64,7 @@ body {
    ========================= */
 .container {
     display: flex;
-    gap: 24px;
+    gap: clamp(16px, 4vw, 24px);
     flex-wrap: wrap;
     align-items: flex-start;
 }
@@ -55,43 +75,56 @@ body {
 .input-section, .results-section {
     background: #23272e;
     border-radius: 10px;
-    padding: 24px;
+    padding: clamp(16px, 4vw, 24px);
     box-shadow: 0 4px 16px rgba(44, 62, 80, 0.07);
     color: #f1f1f1;
 }
+
 .input-section {
     flex: 1 1 320px;
     min-width: 280px;
     max-width: 400px;
 }
+
 .results-section {
-    flex: 600px;
-    min-width: 340px;
+    flex: 2 1 400px;
+    min-width: 320px;
+}
+
+.input-section h2 {
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    margin-bottom: clamp(8px, 2vw, 16px);
+}
+
+.input-section p {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-bottom: clamp(8px, 2vw, 16px);
 }
 
 /* =========================
    Area di testo per argomenti
    ========================= */
 textarea {
-    width: 95%;
-    height: 200px;
-    padding: 10px;
+    width: 100%;
+    height: clamp(150px, 25vh, 200px);
+    padding: clamp(8px, 2vw, 12px);
     border: 1.5px solid #f39c12;
     border-radius: 6px;
     resize: vertical;
     font-family: inherit;
-    font-size: 15px;
-    margin-bottom: 18px;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-bottom: clamp(12px, 3vw, 18px);
     background: #2c2f36;
     color: #fff;
     transition: border-color 0.2s;
-    box-sizing: border-box;
     min-height: 80px;
-    max-height: 250px;
+    max-height: 300px;
 }
+
 textarea:focus {
     border-color: #e67e22;
     background: #23272e;
+    outline: none;
 }
 
 /* =========================
@@ -103,22 +136,39 @@ button,
     background: #f39c12 !important;
     color: #fff !important;
     border: none;
-    padding: 11px 22px;
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 22px);
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
     font-weight: 500;
-    transition: background 0.2s, box-shadow 0.2s;
+    transition: all 0.2s ease;
     box-shadow: 0 2px 6px rgba(255, 255, 255, 0.07);
+    min-height: 44px; /* Migliore tocco su mobile */
 }
+
 button:hover, button:focus,
 .tab button.active:hover, .tab button.active:focus,
 .download-buttons button:hover, .download-buttons button:focus {
     background: #e67e22 !important;
+    transform: translateY(-1px);
 }
+
 button:disabled {
-    background: #b2bec3;
+    background: #b2bec3 !important;
     cursor: not-allowed;
+    transform: none;
+}
+
+#generate-btn {
+    width: 100%;
+    margin-bottom: clamp(8px, 2vw, 16px);
+}
+
+#attempts-left {
+    margin-top: clamp(8px, 2vw, 16px);
+    color: #f39c12;
+    font-weight: bold;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
 }
 
 /* =========================
@@ -127,20 +177,34 @@ button:disabled {
 .result-card {
     background: #2c2f36;
     border-left: 5px solid #f39c12;
-    padding: 18px 18px 12px 18px;
-    margin-bottom: 18px;
+    padding: clamp(12px, 3vw, 18px);
+    margin-bottom: clamp(12px, 3vw, 18px);
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
     overflow-x: auto;
     word-break: break-word;
 }
+
 .result-card h1, .result-card h2, .result-card h3,
 .result-card h4, .result-card h5, .result-card h6 {
-    margin-top: 12px;
-    margin-bottom: 8px;
+    margin-top: clamp(8px, 2vw, 12px);
+    margin-bottom: clamp(6px, 1.5vw, 8px);
     font-weight: 600;
-    color: #217dbb;
-    font-size: 1.25rem;
+    color: #f39c12;
+    font-size: clamp(1rem, 3vw, 1.25rem);
+}
+
+.result-card p {
+    margin-bottom: clamp(8px, 2vw, 12px);
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+.result-card ul, .result-card ol {
+    padding-left: clamp(16px, 4vw, 24px);
+}
+
+.result-card li {
+    margin-bottom: clamp(4px, 1vw, 8px);
 }
 
 /* =========================
@@ -148,22 +212,24 @@ button:disabled {
    ========================= */
 .loading {
     text-align: center;
-    padding: 24px 0;
+    padding: clamp(16px, 4vw, 24px) 0;
     font-style: italic;
     color: #7f8c8d;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
 }
+
 .spinner {
     border: 4px solid rgba(121, 18, 18, 0.09);
-    width: 36px;
-    height: 36px;
+    width: clamp(28px, 6vw, 36px);
+    height: clamp(28px, 6vw, 36px);
     border-radius: 50%;
     border-left-color: #f39c12;
     animation: spin 1s linear infinite;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: clamp(8px, 2vw, 10px);
 }
+
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
@@ -173,36 +239,88 @@ button:disabled {
    ========================= */
 .error {
     color: #ffb3b3;
-    padding: 12px;
+    padding: clamp(8px, 2vw, 12px);
     background: #3d1f1f;
     border-radius: 5px;
-    margin-bottom: 16px;
+    margin-bottom: clamp(12px, 3vw, 16px);
     border-left: 4px solid #e74c3c;
     font-weight: 500;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
 }
 
 /* =========================
    Impostazioni API
    ========================= */
 .api-settings {
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid #eee;
+    margin-top: clamp(16px, 4vw, 24px);
+    padding-top: clamp(12px, 3vw, 18px);
+    border-top: 1px solid #444;
 }
+
+.api-settings h3 {
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    margin-bottom: clamp(8px, 2vw, 16px);
+}
+
+.api-settings label {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-bottom: clamp(8px, 2vw, 16px);
+    display: block;
+}
+
 .api-settings input {
     width: 100%;
-    padding: 9px;
-    margin-bottom: 10px;
+    padding: clamp(8px, 2vw, 12px);
+    margin-bottom: clamp(8px, 2vw, 16px);
     border: 1.5px solid #f39c12;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
     background: #2c2f36;
     color: #fff;
     transition: border-color 0.2s;
+    min-height: 44px;
 }
+
 .api-settings input:focus {
     border-color: #e67e22;
     outline: none;
+}
+
+.api-info {
+    margin-top: clamp(12px, 3vw, 16px);
+}
+
+.api-info p {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    margin-bottom: clamp(8px, 2vw, 12px);
+}
+
+.api-info ol, .api-info ul {
+    padding-left: clamp(16px, 4vw, 24px);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+}
+
+.api-info li {
+    margin-bottom: clamp(4px, 1vw, 8px);
+}
+
+.api-link {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(4px, 1vw, 8px);
+    color: #f39c12;
+    text-decoration: none;
+    margin: clamp(4px, 1vw, 8px) 0;
+    font-weight: 500;
+}
+
+.api-link:hover {
+    color: #e67e22;
+}
+
+.api-icon {
+    width: clamp(20px, 4vw, 30px);
+    height: clamp(20px, 4vw, 30px);
 }
 
 /* =========================
@@ -214,34 +332,44 @@ button:disabled {
     background: #23272e;
     border-radius: 6px 6px 0 0;
     margin-bottom: -1px;
+    display: flex;
+    flex-wrap: wrap;
 }
+
 .tab button {
     background: #23272e;
-    float: left;
+    flex: 1;
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 12px 20px;
+    padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 20px);
     transition: 0.2s;
     color: #f1f1f1;
-    font-size: 1rem;
+    font-size: clamp(0.8rem, 2vw, 1rem);
     border-radius: 6px 6px 0 0;
-    margin-right: 2px;
+    min-height: 44px;
 }
+
 .tab button.active {
     background: #f39c12 !important;
     color: #fff !important;
     font-weight: 600;
 }
+
+.tab button:hover:not(.active) {
+    background: #2c2f36;
+}
+
 .tabcontent {
     display: none;
-    padding: 24px;
+    padding: clamp(12px, 3vw, 24px);
     border: 1px solid #444;
     border-top: none;
     border-radius: 0 0 6px 6px;
     animation: fadeEffect 0.7s;
     background: #23272e;
 }
+
 @keyframes fadeEffect {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -251,13 +379,19 @@ button:disabled {
    Bottoni di download
    ========================= */
 .download-buttons {
-    margin-top: 18px;
-    padding-top: 14px;
-    border-top: 1px solid #eee;
+    margin-top: clamp(12px, 3vw, 18px);
+    padding-top: clamp(8px, 2vw, 14px);
+    border-top: 1px solid #444;
     text-align: right;
+    display: flex;
+    gap: clamp(8px, 2vw, 10px);
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
+
 .download-buttons button {
-    margin-left: 10px;
+    flex: 0 0 auto;
+    min-width: 120px;
 }
 
 /* =========================
@@ -268,61 +402,135 @@ button:disabled {
 }
 
 /* =========================
-   Responsive
+   Media queries specifiche
    ========================= */
-@media (max-width: 900px) {
+
+/* Smartphone piccoli */
+@media (max-width: 480px) {
     .container {
         flex-direction: column;
-        gap: 0;
+        gap: clamp(12px, 3vw, 16px);
     }
+    
     .input-section, .results-section {
         min-width: 0;
         max-width: 100%;
-        margin-bottom: 24px;
-    }
-    .tabcontent {
-        padding: 14px;
-    }
-    .header h1 {
-        font-size: 8vw; /* 8% della larghezza dello schermo */
-    }
-}
-@media (max-width: 900px) {
-    .header {
-        padding: 6vw;
-    }
-    .header h1 {
-        font-size: 4vw;
-        margin-top: 4vw;
-    }
-    .header p {
-        margin-top: 0.2vw;
-        font-size: 4vw;
     }
     
-.api-settings input {
-        width: 70%;
-        font-size: 0.95rem;
-        height: 28px;
-        padding: 5px;
-        width: 100%;
+    .header h1 {
+        flex-direction: column;
+        gap: clamp(8px, 2vw, 12px);
     }
-    .container {
-        padding: 0 2vw;
+    
+    .tab {
+        flex-direction: column;
     }
-    textarea {
-        font-size: 1rem;
-        height: 120px;
-    }
+    
     .tab button {
-        padding: 6px 6px;
-        font-size: 0.9rem;
+        border-radius: 0;
+        border-bottom: 1px solid #444;
     }
-    .results-section {
-        flex:  1 100%;
-        min-width: 85%;
-        
+    
+    .tab button:last-child {
+        border-bottom: none;
+        border-radius: 0 0 6px 6px;
     }
-
+    
+    .tab button.active {
+        border-radius: 0;
+    }
+    
+    .download-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .download-buttons button {
+        width: 100%;
+        min-width: 0;
+    }
 }
 
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .input-section, .results-section {
+        max-width: 100%;
+    }
+    
+    .tab button {
+        min-width: 0;
+        flex: 1;
+    }
+}
+
+/* Desktop grande */
+@media (min-width: 1200px) {
+    .input-section {
+        max-width: 450px;
+    }
+    
+    .results-section {
+        flex: 2 1 500px;
+    }
+}
+
+/* Altezza schermo ridotta */
+@media (max-height: 600px) {
+    .header {
+        margin-bottom: 20px;
+        padding: 12px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .header p {
+        font-size: 0.9rem;
+    }
+    
+    textarea {
+        height: 120px;
+    }
+}
+
+/* Preferenze per ridurre movimento */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .spinner {
+        animation: none;
+    }
+    
+    .header img.logo:hover {
+        transform: none;
+    }
+}
+
+/* Dark mode supportato dal sistema */
+@media (prefers-color-scheme: dark) {
+    /* Già in dark mode, ma possiamo aggiungere ulteriori ottimizzazioni */
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .result-card {
+        border-left-width: 8px;
+    }
+    
+    button {
+        border: 2px solid #fff;
+    }
+    
+    .error {
+        border-left-width: 6px;
+    }
+}
